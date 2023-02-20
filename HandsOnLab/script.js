@@ -213,3 +213,150 @@
 //     nueva fecha
 //     El método debe copiar el evento existente, con una nueva localidad, nueva fecha, nuevo id y sus participantes vacíos (Usar spread operator para el resto de las propiedades)
     
+// class TicketManager {
+//     constructor() {
+//         this.eventos = []
+//     }
+
+//     static PrecioBaseDeGanancia = 0.15
+
+//     getEventos() {
+//         return this.eventos
+//     }
+
+//     agregarEvento(evento) {
+//         evento.precio += evento.precio * TicketManager.PrecioBaseDeGanancia 
+//         if (this.eventos.length === 0) {
+//             evento.id = 1
+//         } else {
+//             evento.id = this.eventos[this.eventos.length - 1].id + 1
+//         }
+//         this.eventos.push(evento)
+//         console.log(evento)
+//         console.log(this.eventos)
+//     }
+
+//     agregarUsuario(idEvento, idUsuario){
+//         const evento = this.eventos.find((e) => e.id === idEvento)
+//         if (!evento) {
+//             console.log("evento no encontrado")
+//         }
+//         const usuarioRegistrado = evento.participantes.includes(idUsuario)
+//         if(usuarioRegistrado) {
+//             console.log("usuario ya registrado")
+//         } else {
+//             evento.participantes.push(idUsuario)
+//         }
+//     }
+    
+
+//     ponerEventoEnGira(idEvento, nuevaLocalidad, nuevaFecha){
+//         const evento = this.eventos.find((e) => e.id === idEvento)
+//         if(!evento) {
+//             console.log("evento no encontrado")
+//         } else {
+//             const nuevoEvento = {
+//                 ...evento,
+//                 lugar: nuevaLocalidad,
+//                 fecha: nuevaFecha,
+//                 id: this.eventos[this.eventos.length - 1].id +1,
+//                 participantes: []
+//             }
+//             this.eventos.push(nuevoEvento)
+//         }
+//     }
+// }
+
+
+// class Evento {
+//     constructor(nombre, lugar, precio, capacidad = 50, fecha = new Date().toLocaleDateString) {
+//         this.nombre = nombre
+//         this.lugar = lugar
+//         this.precio = precio
+//         this.capacidad = capacidad
+//         this.fecha = fecha
+//         this.participantes = []
+//     }
+// }
+
+// const manejadorEventos = new TicketManager();
+
+// console.log('agregando Evento coder 1 para Argentina, precio: 200, para 50 participantes')
+// manejadorEventos.agregarEvento(new Evento('Evento coder 1', 'Argentina', 200, 50));
+// manejadorEventos.agregarEvento(new Evento('Evento coder 2', 'Argentinia', 400, 50));
+
+// manejadorEventos.ponerEventoEnGira(1, 'Mexico', '30/11/2024');
+
+// manejadorEventos.agregarUsuario(1, 2);
+// manejadorEventos.agregarUsuario(2, 2);
+// manejadorEventos.agregarUsuario(1, 2);
+
+// console.log(manejadorEventos.getEventos());
+
+
+// --------------------------------------------------
+
+// CLASE 4 - HANDSONLAB
+
+// Almacenar fecha y hora
+
+// Realizar un programa que cree un archivo en el cual escriba la fecha y la hora actual. Posteriormente leer el archivo y mostrar el contenido por consola. 
+// Utilizar el módulo fs y sus operaciones de tipo callback.
+
+// import fs from "fs"
+
+// let fecha = new Date().toLocaleDateString()
+// let hora = new Date().toLocaleTimeString() 
+// console.log(fecha)
+
+// fs.writeFile("./fecha.txt", `Fecha: ${fecha}. Hora: ${hora}`, (error) => {
+//     if(error) return console.log(error)
+
+//     fs.readFile("./fecha.txt", "utf-8", (error, resultado) => {
+//         if(error) return console.log(error)
+//         console.log(resultado)
+//     })
+
+// })
+
+
+// HANDSONLAB
+
+// Lectura y escritura de archivos
+
+// Escribir un programa ejecutable bajo node.js que realice las siguientes acciones:
+// Abra una terminal en el directorio del archivo y ejecute la instrucción: npm init -y.
+// Esto creará un archivo especial (lo veremos más adelante) de nombre package.json
+// Lea el archivo package.json y declare un objeto con el siguiente formato y datos:
+// const info = {
+//     contenidoStr: (contenido del archivo leído en formato string),
+//     contenidoObj: (contenido del archivo leído en formato objeto),
+//     size: (tamaño en bytes del archivo)
+// }
+
+// Muestre por consola el objeto info luego de leer el archivo
+// Guardar el objeto info en un archivo llamado info.json dentro de la misma carpeta de package.json
+// Incluir el manejo de errores (con throw new Error)
+// Utilizar el módulo promises de fs dentro de una función async/await y utilizar JSON.stringify + JSON.parse para poder hacer las transformaciones json->objeto y viceversa
+
+import fs from "fs"
+import { Blob } from "buffer"
+
+const manejadorArchivos = async() => {
+    const data = await fs.promises.readFile("./package.json", "utf-8")
+    const contenidoStr = data
+    const contenidoObj = JSON.parse(data)
+    const size = new Blob([data]).size
+
+    const info = {
+        contenidoStr,
+        contenidoObj,
+        size
+    }
+
+    console.log(info)
+    await fs.promises.writeFile("./info.json", JSON.stringify(info, null, 2))
+}
+
+manejadorArchivos()
+
