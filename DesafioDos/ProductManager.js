@@ -107,12 +107,12 @@ const test = new ProductManager()
 //     stock: 25,
 // });
 
-await test.getProductsById(2)
-await test.deleteProduct(3)
+// await test.getProductsById(2)
+// await test.deleteProduct(3)
 
-let updatedProduct = {title: 'producto prueba1233',
-    description: 'Este es un producto pruebaaaaa',
-    code: 'abc123',
-    stock: 25,}
+// let updatedProduct = {title: 'producto prueba1233',
+//     description: 'Este es un producto pruebaaaaa',
+//     code: 'abc123',
+//     stock: 25,}
 
-await test.updateProduct(2, updatedProduct)
+// await test.updateProduct(2, updatedProduct)
