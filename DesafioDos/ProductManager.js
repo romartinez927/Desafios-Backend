@@ -8,16 +8,15 @@ export default class ProductManager {
     }
 
     getProducts = async() => {
-        if (fs.existsSync(this.path)) {
-            const data = await fs.promises.readFile(this.path, 'utf-8');
-            console.log(data);
-            const products = JSON.parse(data);
-            return products;
-        }
-        else{
+        if (!fs.existsSync(this.path)) {
             console.log("no hay productos")
             return [] 
+
         }
+        const data = await fs.promises.readFile(this.path, 'utf-8');
+        console.log(data);
+        const products = JSON.parse(data);
+        return products;
     }
 
     addProduct = async (producto) => {
@@ -36,12 +35,11 @@ export default class ProductManager {
         const products = await this.getProducts()
         const product = products.find((prod) => prod.id === id )
 
-        if (product) {
-            console.log(product)
-            return product
-        } else {
-            console.log(`Producto no encontrado con el id ${id}`) }
-            
+        if (!product) {
+            console.log(`Producto no encontrado con el id ${id}`) 
+        } 
+        console.log(product)
+        return product
     }
 
     updateProduct = async (id, updatedProduct) => {
@@ -49,16 +47,16 @@ export default class ProductManager {
         const product = products.find((prod) => prod.id === id)
         const {title, price, description, thumbnail, code, stock} = updatedProduct
 
-        if (product) {
-            product.title = title
-            product.description = description
-            product.thumbnail = thumbnail
-            product.price = price
-            product.code = code
-            product.stock = stock
-            product.id = id
-        } else {
-            console.log(`Producto no encontrado con el id ${id}`) }
+        if (!product) {
+            console.log(`Producto no encontrado con el id ${id}`) 
+        } 
+        product.title = title
+        product.description = description
+        product.thumbnail = thumbnail
+        product.price = price
+        product.code = code
+        product.stock = stock
+        product.id = id
 
         await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2))
     }
@@ -67,13 +65,14 @@ export default class ProductManager {
         let products = await this.getProducts()
         const productoAEliminar = products.find((prod) => prod.id === id)
 
-        if (productoAEliminar) {
-            const newProducts = products.filter((prod) => prod !== productoAEliminar)
-            products = newProducts
-            await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2))
-            return newProducts
-        } else {
-            console.log(`Producto no encontrado con el id ${id}`) }
+        if (!productoAEliminar) {
+            console.log(`Producto no encontrado con el id ${id}`)
+        } 
+        
+        const newProducts = products.filter((prod) => prod !== productoAEliminar)
+        products = newProducts
+        await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2))
+        return newProducts
         
     }
 }
