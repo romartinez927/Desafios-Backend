@@ -1,7 +1,7 @@
 // CLASE 0 - HANDSONLAB
 
-// Definir variables que almacenen datos (nombre, edad, precio, nombres de series y películas), 
-// mostrar esos valores por consola, incrementar la edad en 1, una serie a la lista y volver a mostrarlas. 
+// Definir variables que almacenen datos (nombre, edad, precio, nombres de series y películas),
+// mostrar esos valores por consola, incrementar la edad en 1, una serie a la lista y volver a mostrarlas.
 // Compartir la definición en el Visual Studio Code.
 
 // let edad = 11
@@ -39,7 +39,7 @@
 // Invocar la función con los casos de prueba.
 
 // function mostrarLista(array) {
-//     if (array.length === 0){ 
+//     if (array.length === 0){
 //         console.log("Lista vacía")
 //     } else {
 //         array.map(el => console.log(el))
@@ -58,7 +58,7 @@
 //                 {nombre: "The marias", año: 2015}]
 // mostrarLista(miArray2)
 
-// HANDSONLAB 
+// HANDSONLAB
 // En esta instancia de la clase repasaremos cómo se crean las clases.
 
 // Creación de una clase contador
@@ -131,7 +131,7 @@
 // CLASE 2 - HANDS ON LAB
 // Utilización ES6-ES9
 
-// Descripción de la actividad. 
+// Descripción de la actividad.
 // Dados los objetos indicados en la siguiente diapositiva:
 // Realizar una lista nueva  (array) que contenga todos los tipos de productos (no cantidades), consejo: utilizar Object.keys y Array.includes. Mostrar el array por consola.
 // Posteriormente, obtener el total de productos vendidos por todos los objetos (utilizar Object.values)
@@ -163,7 +163,7 @@
 
 // // Esto pasa porque, primero hace un filter de todos los tipos de tiposDeProductos,
 // // este metodo hace que lo que cumpla la condición, pase por el filtro.
-// // Dentro de este filtro, la condicion es que, si el numero de indice coincide con el item, 
+// // Dentro de este filtro, la condicion es que, si el numero de indice coincide con el item,
 // // este pasa el filtro, (por ejemplo manzanas[0] === true), esto significa que si vuelve a aparecer
 // // el nombre de manzanas (es decir, manzanas[6]), esto ya no sería verdadero, y no pasa el filtro.
 // let result = tiposDeProductos.filter((item,index) => {
@@ -177,7 +177,7 @@
 //     // Con esto obtengo 2 array con solo los valores de los dos objetos
 //     console.log(valores)
 //     let total = valores.reduce((acc, el) => acc + el, 0)
-    
+
 //     // Así puedo sumar los totales que me den de los dos array
 //     totalProductos += total
 // }
@@ -187,7 +187,7 @@
 
 
 
-// HandsOnLab 
+// HandsOnLab
 // Registrador de tickets de eventos
 //     ¿Cómo lo hacemos? Se creará una clase que permitirá llevar una gestión completa de usuarios que deseen acceder a dichos eventos.
 
@@ -212,7 +212,7 @@
 //     nueva localidad
 //     nueva fecha
 //     El método debe copiar el evento existente, con una nueva localidad, nueva fecha, nuevo id y sus participantes vacíos (Usar spread operator para el resto de las propiedades)
-    
+
 // class TicketManager {
 //     constructor() {
 //         this.eventos = []
@@ -225,7 +225,7 @@
 //     }
 
 //     agregarEvento(evento) {
-//         evento.precio += evento.precio * TicketManager.PrecioBaseDeGanancia 
+//         evento.precio += evento.precio * TicketManager.PrecioBaseDeGanancia
 //         if (this.eventos.length === 0) {
 //             evento.id = 1
 //         } else {
@@ -248,7 +248,7 @@
 //             evento.participantes.push(idUsuario)
 //         }
 //     }
-    
+
 
 //     ponerEventoEnGira(idEvento, nuevaLocalidad, nuevaFecha){
 //         const evento = this.eventos.find((e) => e.id === idEvento)
@@ -300,13 +300,13 @@
 
 // Almacenar fecha y hora
 
-// Realizar un programa que cree un archivo en el cual escriba la fecha y la hora actual. Posteriormente leer el archivo y mostrar el contenido por consola. 
+// Realizar un programa que cree un archivo en el cual escriba la fecha y la hora actual. Posteriormente leer el archivo y mostrar el contenido por consola.
 // Utilizar el módulo fs y sus operaciones de tipo callback.
 
 // import fs from "fs"
 
 // let fecha = new Date().toLocaleDateString()
-// let hora = new Date().toLocaleTimeString() 
+// let hora = new Date().toLocaleTimeString()
 // console.log(fecha)
 
 // fs.writeFile("./fecha.txt", `Fecha: ${fecha}. Hora: ${hora}`, (error) => {
@@ -339,24 +339,78 @@
 // Incluir el manejo de errores (con throw new Error)
 // Utilizar el módulo promises de fs dentro de una función async/await y utilizar JSON.stringify + JSON.parse para poder hacer las transformaciones json->objeto y viceversa
 
-import fs from "fs"
-import { Blob } from "buffer"
+// import fs from "fs"
+// import { Blob } from "buffer"
 
-const manejadorArchivos = async() => {
-    const data = await fs.promises.readFile("./package.json", "utf-8")
-    const contenidoStr = data
-    const contenidoObj = JSON.parse(data)
-    const size = new Blob([data]).size
+// const manejadorArchivos = async() => {
+//     const data = await fs.promises.readFile("./package.json", "utf-8")
+//     const contenidoStr = data
+//     const contenidoObj = JSON.parse(data)
+//     const size = new Blob([data]).size
 
-    const info = {
-        contenidoStr,
-        contenidoObj,
-        size
-    }
+//     const info = {
+//         contenidoStr,
+//         contenidoObj,
+//         size
+//     }
 
-    console.log(info)
-    await fs.promises.writeFile("./info.json", JSON.stringify(info, null, 2))
-}
+//     console.log(info)
+//     await fs.promises.writeFile("./info.json", JSON.stringify(info, null, 2))
+// }
 
-manejadorArchivos()
+// manejadorArchivos()
 
+
+
+
+// HANDS ON LAB
+// Manager de usuarios
+
+// ¿Cómo lo hacemos? Se creará una clase que permita gestionar usuarios usando fs.promises, éste deberá contar sólo con dos métodos: Crear un usuario y consultar los usuarios guardados.
+
+// El Manager debe vivir en una clase en un archivo externo llamado ManagerUsuarios.js
+// El método “Crear usuario” debe recibir un objeto con los campos:
+// Nombre
+// Apellido
+// Edad
+// Curso
+// El método debe guardar un usuario en un archivo “Usuarios.json”, deben guardarlos dentro de un arreglo, ya que se trabajarán con múltiples usuarios
+
+// El método “ConsultarUsuarios” debe poder leer un archivo Usuarios.json y devolver el arreglo correspondiente a esos usuarios
+
+// import fs from "fs"
+
+// export default class ManagerUsuarios {
+//     constructor(path="./usuarios.json") {
+//         this.path = path
+//     }
+
+//     crearUsuario = async(usuario) => {
+//         const usuarios = await this.consultarUsuario()
+//         usuarios.push(usuario)
+//         await fs.promises.writeFile(this.path, JSON.stringify(usuarios, null, 2))
+//         return usuario
+//     }
+
+//     consultarUsuario = async() => {
+//         if(!fs.existsSync(this.path)) {
+//             console.log("no existen usuarios, aún")
+//             return []
+//         }
+//         const data = await fs.promises.readFile(this.path, "utf-8")
+//         const usuarios = JSON.parse(data)
+//         return usuarios
+//     }
+// }
+
+// const test = new ManagerUsuarios
+
+// await test.crearUsuario({
+//         nombre: "Gus",
+//         apellido: "Tav",
+//         edad: 21,
+//         curso: 1
+//     })
+
+let aleatorio = Math.floor((Math.random() * (20 + 1)))
+console.log(aleatorio)
