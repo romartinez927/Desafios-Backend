@@ -2,8 +2,7 @@ import express from "express"
 import { ProductManager } from "./ProductManager.js"
 
 const app = express()
-
-const test = new ProductManager()
+const test = new ProductManager("./database/products.json")
             
 const productos = await test.getProducts()
 
@@ -22,6 +21,5 @@ app.get("/products/:id", (req, res) => {
     if (!productById) return res.send({error:"Usuario no encontrado"})                        
     res.send({productos:productById})
 })
-
 
 const server = app.listen(8080)
