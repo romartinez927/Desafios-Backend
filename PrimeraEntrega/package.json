@@ -3,7 +3,7 @@
   "name": "primeraentrega",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "node .",
     "test": "nodemon -e 'js' ."
